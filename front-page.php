@@ -14,6 +14,7 @@ Template Post Type: page
 
                     $myposts = get_posts([ 
                         'numberposts' => 1,
+                        'category_name' => 'css, html, javascript, web-designe' 
                     ]);
 
                     // Проверка постов
@@ -34,7 +35,7 @@ Template Post Type: page
                                 </a>
                                 <div class="post-text">
                                     <? the_category() ?>
-                                    <h2 class="post-title"><?the_title()?></h2>
+                                    <h2 class="post-title"><?echo mb_strimwidth(get_the_title(), 0, 50, '...')?></h2>
                                     <a href="<?echo get_the_permalink()?>" class="more">Читать далее</a>
                                 </div>
                             <?php 
@@ -57,7 +58,8 @@ Template Post Type: page
 
                         $myposts = get_posts([ 
                             'numberposts' => 5,
-                            'offset' => 1
+                            'offset' => 1,
+                            'category_name' => 'css, html, javascript, web-designe' 
                         ]);
 
                         // Проверка постов
@@ -70,7 +72,7 @@ Template Post Type: page
                                     <li class="post">
                                         <? the_category() ?>
                                         <a class="post-permalink" href="<?echo get_the_permalink()?>">
-                                            <h4 class="post-title"><?the_title()?></h4>
+                                            <h4 class="post-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h4>
                                         </a>
                                     </li>
                                 <?php 
@@ -88,9 +90,44 @@ Template Post Type: page
             <!-- /.right -->
         </div>
         <!-- /.hero -->
-
-        
     </div>
     <!-- /.container -->
 </main>
+
+<div class="container">
+    <ul class="article-list">
+        <?php
+            global $post;
+
+            $myposts = get_posts([ 
+                'numberposts' => 4,
+                'category_name' => 'articles'
+            ]);
+
+            // Проверка постов
+            if( $myposts ){
+                // Если есть, запускаем цикл
+                foreach( $myposts as $post ){
+                    setup_postdata( $post );
+                    ?>
+                        <!-- Выводим записи -->
+                        <li class="article-item">
+                            <a class="article-permalink" href="<?echo get_the_permalink()?>">
+                            <h4 class="article-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h4>
+                            </a>
+                            <img width="65" height="65" src="<?echo get_the_post_thumbnail_url( null, 'thumbnail' )?>" alt="<?the_title()?>">
+                        </li>
+                    <?php 
+                }
+            } else {
+                ?><p>
+                    Постов нет
+                </p> <?
+            }
+
+            wp_reset_postdata(); // Сбрасываем $post
+        ?>
+    </ul>
+    <!-- ./article-list -->
+</div>
 <? get_footer(); ?>
