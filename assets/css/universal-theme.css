@@ -636,6 +636,17 @@ a {
   color: #ffffff;
 }
 
+.article-grid-item-2 .tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .article-grid-item-2 .tag {
   padding: 5px 12px;
   background: #3DC47E;
@@ -644,6 +655,10 @@ a {
   font-size: 12px;
   line-height: 15px;
   text-transform: capitalize;
+}
+
+.article-grid-item-2 .tag:not(last-child) {
+  margin: 0 10px 10px 0;
 }
 
 .article-grid-item-2 .category-name {
@@ -899,4 +914,31 @@ a {
 .widget-social .widget-title {
   text-align: center;
   border: none;
+}
+
+.widget .tagcloud {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 25px;
+  padding-bottom: 35px;
+}
+
+.widget .tag-cloud-link {
+  margin-right: 10px;
+  margin-bottom: 15px;
+  line-height: 20px;
+  color: #262D33;
+  text-decoration: none;
+  padding: 5px 15px;
+  border: 1px solid #D9DADB;
+  border-radius: 5px;
 }

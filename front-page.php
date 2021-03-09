@@ -181,7 +181,15 @@ Template Post Type: page
                                     <a href="<? the_permalink() ?>" class="article-grid-permalink">
                                         <? $posttags = get_the_tags();
                                             if ( $posttags ) {
-                                                ?><span class="tag"><?echo $posttags[0]->name . ' ';?></span><?
+                                                ?>
+                                                    <div class="tags">
+                                                        <?
+                                                            foreach($posttags as $posttag) {
+                                                                ?><span class="tag" style="margin-bottom: 10px;"><?echo $posttag->name . ' ';?></span><?
+                                                            }
+                                                        ?>
+                                                    </div>
+                                                <?
                                             }
                                         ?>
                                         
