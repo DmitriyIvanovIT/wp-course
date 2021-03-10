@@ -14,7 +14,7 @@ Template Post Type: page
 
                     $myposts = get_posts([ 
                         'numberposts' => 1,
-                        'category_name' => 'css, html, javascript, web-designe' 
+                        'category_name' => 'css, html, javascript, web-design' 
                     ]);
 
                     // Проверка постов
@@ -34,7 +34,16 @@ Template Post Type: page
                                     </div>
                                 </a>
                                 <div class="post-text">
-                                    <? the_category() ?>
+                                    <?
+                                        foreach(get_the_category() as $category) {
+                                            printf(
+                                                '<a href="%s" class="category-link %s">%s</a>', 
+                                                get_category_link( $category ), 
+                                                $category -> slug,
+                                                $category -> name
+                                            );
+                                        }
+                                    ?>
                                     <h2 class="post-title"><?echo mb_strimwidth(get_the_title(), 0, 50, '...')?></h2>
                                     <a href="<?echo get_the_permalink()?>" class="more">Читать далее</a>
                                 </div>
@@ -59,7 +68,7 @@ Template Post Type: page
                         $myposts = get_posts([ 
                             'numberposts' => 5,
                             'offset' => 1,
-                            'category_name' => 'css, html, javascript, web-designe' 
+                            'category_name' => 'css, html, javascript, web-design' 
                         ]);
 
                         // Проверка постов
@@ -70,7 +79,16 @@ Template Post Type: page
                                 ?>
                                     <!-- Выводим записи -->
                                     <li class="post">
-                                        <? the_category() ?>
+                                        <?
+                                            foreach(get_the_category() as $category) {
+                                                printf(
+                                                    '<a href="%s" class="category-link %s">%s</a>', 
+                                                    esc_url(get_category_link( $category )), 
+                                                    esc_html($category -> slug),
+                                                    esc_html($category -> name)
+                                                );
+                                            }
+                                        ?>
                                         <a class="post-permalink" href="<?echo get_the_permalink()?>">
                                             <h4 class="post-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h4>
                                         </a>
@@ -257,10 +275,11 @@ Template Post Type: page
         </ul>
         <!-- /.article-grid -->
 
-        <? get_sidebar() ?>
+        <? get_sidebar('home-top') ?>
     </div>
+</div>
 
-    <? 
+<? 
         $myposts = get_posts([ 
             'numberposts' => 1,
             'category_name' => 'investigation' 
@@ -288,71 +307,82 @@ Template Post Type: page
         wp_reset_postdata(); // Сбрасываем $post
     ?>
 
-<div class="digest-wrapper">
-    <ul class="digest">
-        <? 
-            $myposts = get_posts([ 
-                'numberposts' => 6,
-                'category_name' => 'news, opinions, hot, collections' 
-            ]); 
-                // Проверка постов
-                if( $myposts ){
-                    // Если есть, запускаем цикл
-                    foreach( $myposts as $post ){
-                        setup_postdata( $post );
-                        ?>
-                            <li class="digest-item">
-                                <a href="<? the_permalink() ?>" class="digest-item-permalink">
-                                    <img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="digest-thumb">
-                                </a>
-                                <div class="digest-info">
-                                    <button class="bookmark">
-                                    <!-- <svg width="14" height="18" class="icon icon-bookmark">
-                                        <use xlink:href=""></use>
-                                    </svg> -->
-                                    <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2 0H12C13.1046 0 14 0.89543 14 2V18L7.09495 13L0 18V2C0 0.89543 0.89543 0 2 0Z" fill="#BCBFC2"/>
-                                    </svg>
-
-                                    </button>
-                                    <? $category = get_the_category(); ?>
-                                    <a href="<? echo $category[0]->name ?>" class="category-link"><? echo $category[0]->name ?></a>
-                                    <a href="#" class="digest-item-permalink">
-                                    <h3 class="digest-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h3>
+<div class="container container-digest">
+    <div class="digest-wrapper">
+        <ul class="digest">
+            <? 
+                $myposts = get_posts([ 
+                    'numberposts' => 6,
+                    'category_name' => 'news, opinions, hot, collections' 
+                ]); 
+                    // Проверка постов
+                    if( $myposts ){
+                        // Если есть, запускаем цикл
+                        foreach( $myposts as $post ){
+                            setup_postdata( $post );
+                            ?>
+                                <li class="digest-item">
+                                    <a href="<? the_permalink() ?>" class="digest-item-permalink">
+                                        <img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="digest-thumb">
                                     </a>
-                                    <p class="digest-excerpt"><? echo mb_strimwidth(get_the_excerpt(), 0, 200, '...') ?></p>
-                                    <div class="digest-footer">
-                                    <span class="digest-date"><? the_time('j F') ?></span>
-                                    <div class="comments digest-comments">
-                                        <!-- <svg width="19" height="15" class="icon comments-icon">
-                                        <use xlink:href=""></use>
+                                    <div class="digest-info">
+                                        <button class="bookmark">
+                                        <!-- <svg width="14" height="18" class="icon icon-bookmark">
+                                            <use xlink:href=""></use>
                                         </svg> -->
-                                        <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1346 10.9998V13.9998L8.36064 10.9998H2.25C1.42157 10.9998 0.75 10.3282 0.75 9.49976V1.99976C0.75 1.17133 1.42157 0.499756 2.25 0.499756H12.75C13.5784 0.499756 14.25 1.17133 14.25 1.99976V9.49976C14.25 10.3282 13.5784 10.9998 12.75 10.9998H11.1346Z" fill="#BCBFC2"/>
+                                        <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2 0H12C13.1046 0 14 0.89543 14 2V18L7.09495 13L0 18V2C0 0.89543 0.89543 0 2 0Z" fill="#BCBFC2"/>
                                         </svg>
-                                        <span class="comments-counter"><? comments_number( '0', '1', '%') ?></span>
-                                    </div>
-                                    <div class="likes digest-likes">
-                                        <img src="<? echo get_template_directory_uri() ?>/assets/images/heart-grey.svg" alt="icon: like" class="likes-icon">
-                                        <span class="likes-counter"><? comments_number( '0', '1', '%') ?></span>
-                                    </div>
-                                    </div>
-                                    <!-- /.digest-footer -->
-                                </div>
-                                <!-- /.digest-info -->
-                            </li>
-        <?php 
-                }
-            } else {
-                ?><p>
-                        Постов нет
-                </p> <?
-            }
 
-            wp_reset_postdata(); // Сбрасываем $post
-        ?>
-        
-    </ul>
-</div>
+                                        </button>
+                                        <?
+                                            foreach(get_the_category() as $category) {
+                                                printf(
+                                                    '<a href="%s" class="category-link %s">%s</a>', 
+                                                    get_category_link( $category ), 
+                                                    $category -> slug,
+                                                    $category -> name
+                                                );
+                                            }
+                                        ?>
+                                        <a href="#" class="digest-item-permalink">
+                                        <h3 class="digest-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h3>
+                                        </a>
+                                        <p class="digest-excerpt"><? echo mb_strimwidth(get_the_excerpt(), 0, 200, '...') ?></p>
+                                        <div class="digest-footer">
+                                        <span class="digest-date"><? the_time('j F') ?></span>
+                                        <div class="comments digest-comments">
+                                            <!-- <svg width="19" height="15" class="icon comments-icon">
+                                            <use xlink:href=""></use>
+                                            </svg> -->
+                                            <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1346 10.9998V13.9998L8.36064 10.9998H2.25C1.42157 10.9998 0.75 10.3282 0.75 9.49976V1.99976C0.75 1.17133 1.42157 0.499756 2.25 0.499756H12.75C13.5784 0.499756 14.25 1.17133 14.25 1.99976V9.49976C14.25 10.3282 13.5784 10.9998 12.75 10.9998H11.1346Z" fill="#BCBFC2"/>
+                                            </svg>
+                                            <span class="comments-counter"><? comments_number( '0', '1', '%') ?></span>
+                                        </div>
+                                        <div class="likes digest-likes">
+                                            <img src="<? echo get_template_directory_uri() ?>/assets/images/heart-grey.svg" alt="icon: like" class="likes-icon">
+                                            <span class="likes-counter"><? comments_number( '0', '1', '%') ?></span>
+                                        </div>
+                                        </div>
+                                        <!-- /.digest-footer -->
+                                    </div>
+                                    <!-- /.digest-info -->
+                                </li>
+            <?php 
+                    }
+                } else {
+                    ?><p>
+                            Постов нет
+                    </p> <?
+                }
+
+                wp_reset_postdata(); // Сбрасываем $post
+            ?>
+            
+        </ul>
+    </div>
+    
+    <? get_sidebar('home-bottom') ?>
 </div>
 <? get_footer();
