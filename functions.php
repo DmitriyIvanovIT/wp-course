@@ -403,7 +403,16 @@ class Recent_Posts_Widget extends WP_Widget {
                     setup_postdata( $post );
                     ?>
                         <a href="<? the_permalink() ?>" class="recent-post-link">
-                            <img class="recent-post-thumb" src="<?the_post_thumbnail_url()?>" alt="<? echo mb_strimwidth(get_the_title(), 0, 35, '...') ?>">
+                            <?
+                                if( has_post_thumbnail() ) {
+                                                
+                                    ?><img class="recent-post-thumb" src="<?the_post_thumbnail_url()?>" alt="<? echo mb_strimwidth(get_the_title(), 0, 35, '...') ?>"><?
+                                }
+                                else {
+                                    ?><img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<? echo mb_strimwidth(get_the_title(), 0, 35, '...') ?>" class="recent-post-thumb"><?
+                                }
+                            ?>
+                            
                             <div class="recent-post-info">
                             <h4 class="recent-post-title"><? echo mb_strimwidth(get_the_title(), 0, 35, '...') ?></h4>
                             <span class="recent-post-time">
@@ -500,8 +509,12 @@ add_action( 'widgets_init', 'register_recent_posts_widget' );
 add_action( 'wp_enqueue_scripts', 'enqueue_universal_style' );
 function enqueue_universal_style() {
 	wp_enqueue_style( 'style', get_stylesheet_uri() );
+    wp_enqueue_style( 'swiper-style', 'https://unpkg.com/swiper/swiper-bundle.min.css' );
     wp_enqueue_style( 'universal-theme', get_template_directory_uri() . '/assets/css/universal-theme.css', 'style', time() );
     wp_enqueue_style( 'Roboto Slab', 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap' );
+
+    wp_enqueue_script( 'swiper', 'https://unpkg.com/swiper/swiper-bundle.min.js', null, time(), true );
+    wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/index.js', null, time(), true );
 }
 
 // Изменяем настройки облака тегов

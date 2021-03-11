@@ -24,7 +24,15 @@ Template Post Type: page
                             setup_postdata( $post );
                             ?>
                                 <!-- Выводим записи -->
-                                <img src="<?the_post_thumbnail_url()?>" alt="<?the_title()?>" class="post-thumb">
+                                <?
+                                    if( has_post_thumbnail() ) {
+                                        ?> <img src="<?the_post_thumbnail_url()?>" alt="<?the_title()?>" class="post-thumb"> <?
+                                    }
+                                    else {
+                                        ?> <img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<?the_title()?>" class="post-thumb"> <?
+                                    }
+                                ?>
+                                
                                 <? $author_id = get_the_author_meta('ID') ?>
                                 <a href="<? echo get_author_posts_url($author_id) ?>" class="author">
                                     <?php echo get_avatar( $author_id ); ?>
@@ -134,7 +142,13 @@ Template Post Type: page
                             <a class="article-permalink" href="<?echo get_the_permalink()?>">
                             <h4 class="article-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h4>
                             </a>
-                            <img width="65" height="65" src="<?echo get_the_post_thumbnail_url( null, 'thumbnail' )?>" alt="<?the_title()?>">
+                            <img width="65" height="65" src="<?
+                                if ( has_post_thumbnail() ) {
+                                    echo get_the_post_thumbnail_url( null, 'thumbnail' );
+                                } else {
+                                    echo get_template_directory_uri().'/assets/images/not-photo.jpg';
+                                }
+                            ?>" alt="<?the_title()?>">
                         </li>
                     <?php 
                 }
@@ -181,11 +195,8 @@ Template Post Type: page
                                                 <span class="author-name"><strong><? the_author() ?></strong>: <? the_author_meta('description') ?></span>
                                             </div>
                                             <div class="comments">
-                                                <!-- <svg width="19" height="15" class="icon comments-icon">
-                                                    <use xlink:href=""></use>
-                                                </svg> -->
-                                                <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1346 10.9998V13.9998L8.36064 10.9998H2.25C1.42157 10.9998 0.75 10.3282 0.75 9.49976V1.99976C0.75 1.17133 1.42157 0.499756 2.25 0.499756H12.75C13.5784 0.499756 14.25 1.17133 14.25 1.99976V9.49976C14.25 10.3282 13.5784 10.9998 12.75 10.9998H11.1346Z" fill="#BCBFC2"/>
+                                                <svg width="19" height="15" class="icon comments-icon">
+                                                    <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#comment"></use>
                                                 </svg>
                                                 <span class="comments-counter"><? comments_number( '0', '1', '%') ?></span>
                                             </div>
@@ -197,7 +208,14 @@ Template Post Type: page
                         case '2':
                             ?>
                                 <li class="article-grid-item article-grid-item-2">
-                                    <img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="article-grid-thumb">
+                                    <?
+                                        if( has_post_thumbnail() ) {
+                                            ?><img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="article-grid-thumb"><?
+                                        }
+                                        else {
+                                            ?><img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<? the_title() ?>" class="article-grid-thumb"><?
+                                        }
+                                    ?>
                                     <a href="<? the_permalink() ?>" class="article-grid-permalink">
                                         <? $posttags = get_the_tags();
                                             if ( $posttags ) {
@@ -223,16 +241,15 @@ Template Post Type: page
                                                 <span class="author-name"><strong><? the_author() ?></strong></span>
                                                 <span class="date"><? the_time('j F') ?></span>
                                                 <div class="comments">
-                                                    <!-- <svg width="19" height="15" fill='#fff' class="icon comments-icon">
-                                                        <use xlink:href=""></use>
-                                                    </svg> -->
-                                                    <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1346 10.9998V13.9998L8.36064 10.9998H2.25C1.42157 10.9998 0.75 10.3282 0.75 9.49976V1.99976C0.75 1.17133 1.42157 0.499756 2.25 0.499756H12.75C13.5784 0.499756 14.25 1.17133 14.25 1.99976V9.49976C14.25 10.3282 13.5784 10.9998 12.75 10.9998H11.1346Z" fill="#BCBFC2"/>
+                                                    <svg width="19" height="15" fill='#fff' class="icon comments-icon">
+                                                        <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#comment"></use>
                                                     </svg>
                                                     <span class="comments-counter likes-counter"><? comments_number( '0', '1', '%') ?></span>
                                                 </div>
                                                 <div class="likes">
-                                                    <img src="<? echo get_template_directory_uri() ?>/assets/images/heart.svg" alt="icon: like" class="likes-icon">
+                                                    <svg width="19" height="15" class="icon likes-icon" fill='#fff'>
+                                                        <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#heart"></use>
+                                                    </svg>
                                                     <span class="likes-counter"><? comments_number( '0', '1', '%') ?></span>
                                                 </div>
                                             </div>
@@ -247,7 +264,15 @@ Template Post Type: page
                             ?>
                             <li class="article-grid-item article-grid-item-3">
                                 <a href="<? the_permalink() ?>" class="article-grid-permalink">
-                                    <img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="article-thumb">
+                                    <?
+                                        if( has_post_thumbnail() ) {
+                                            ?><img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="article-thumb"><?
+                                        }
+                                        else {
+                                            ?><img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<? the_title() ?>" class="article-thumb"><?
+                                        }
+                                    ?>
+                                    
                                     <h4 class="article-grid-title"><? echo mb_strimwidth(get_the_title(), 0, 40, '...') ?></h4>
                                 </a>
                             </li>
@@ -290,7 +315,13 @@ Template Post Type: page
                 foreach( $myposts as $post ){
                     setup_postdata( $post );
                     ?>
-                    <section class="investigation" style="background: linear-gradient(0deg, rgba(64, 48, 61, 0.65), rgba(64, 48, 61, 0.65)), url(<?the_post_thumbnail_url()?>) no-repeat center center">
+                    <section class="investigation" style="background: linear-gradient(0deg, rgba(64, 48, 61, 0.65), rgba(64, 48, 61, 0.65)), url(<?
+                        if ( has_post_thumbnail() ) {
+                            echo get_the_post_thumbnail_url();
+                        } else {
+                            echo get_template_directory_uri().'/assets/images/not-photo.jpg';
+                        }
+                    ?>) no-repeat center center">
                         <div class="container">
                             <h2 class="investigation-title"><? the_title() ?></h2>
                             <a href="<? the_permalink() ?>" class="more">Читать статью</a>
@@ -323,15 +354,20 @@ Template Post Type: page
                             ?>
                                 <li class="digest-item">
                                     <a href="<? the_permalink() ?>" class="digest-item-permalink">
-                                        <img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="digest-thumb">
+                                        <?
+                                            if( has_post_thumbnail() ) {
+                                                
+                                                ?><img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="digest-thumb"><?
+                                            }
+                                            else {
+                                                ?><img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<? the_title() ?>" class="digest-thumb"><?
+                                            }
+                                        ?>
                                     </a>
                                     <div class="digest-info">
                                         <button class="bookmark">
-                                        <!-- <svg width="14" height="18" class="icon icon-bookmark">
-                                            <use xlink:href=""></use>
-                                        </svg> -->
-                                        <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2 0H12C13.1046 0 14 0.89543 14 2V18L7.09495 13L0 18V2C0 0.89543 0.89543 0 2 0Z" fill="#BCBFC2"/>
+                                        <svg width="14" height="18" class="icon icon-bookmark">
+                                            <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#bookmark"></use>
                                         </svg>
 
                                         </button>
@@ -352,16 +388,15 @@ Template Post Type: page
                                         <div class="digest-footer">
                                         <span class="digest-date"><? the_time('j F') ?></span>
                                         <div class="comments digest-comments">
-                                            <!-- <svg width="19" height="15" class="icon comments-icon">
-                                            <use xlink:href=""></use>
-                                            </svg> -->
-                                            <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1346 10.9998V13.9998L8.36064 10.9998H2.25C1.42157 10.9998 0.75 10.3282 0.75 9.49976V1.99976C0.75 1.17133 1.42157 0.499756 2.25 0.499756H12.75C13.5784 0.499756 14.25 1.17133 14.25 1.99976V9.49976C14.25 10.3282 13.5784 10.9998 12.75 10.9998H11.1346Z" fill="#BCBFC2"/>
+                                            <svg width="19" height="15" class="icon comments-icon">
+                                                <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#comment"></use>
                                             </svg>
                                             <span class="comments-counter"><? comments_number( '0', '1', '%') ?></span>
                                         </div>
                                         <div class="likes digest-likes">
-                                            <img src="<? echo get_template_directory_uri() ?>/assets/images/heart-grey.svg" alt="icon: like" class="likes-icon">
+                                            <svg width="19" height="15" class="icon likes-icon" fill="#BCBFC2">
+                                                <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#heart"></use>
+                                            </svg>
                                             <span class="likes-counter"><? comments_number( '0', '1', '%') ?></span>
                                         </div>
                                         </div>
@@ -385,4 +420,170 @@ Template Post Type: page
     
     <? get_sidebar('home-bottom') ?>
 </div>
+
+<div class="special">
+    <div class="container">
+        <div class="special-grid">
+        <div class="photo-report">
+            <?php
+                global $post;
+
+                $myposts = get_posts([ 
+                    'numberposts' => 1,
+                    'category_name' => 'photo-report'
+                ]);
+
+                // Проверка постов
+                if( $myposts ){
+                    // Если есть, запускаем цикл
+                    foreach( $myposts as $post ){
+                        setup_postdata( $post );
+                        ?>
+                            <?
+                                $media = get_attached_media( 'image' );
+
+                                if ( $media ) {
+                                    ?>
+                                        <!-- Slider main container -->
+                                        <div class="swiper-container photo-report-slider">
+                                        <!-- Additional required wrapper -->
+                                            <div class="swiper-wrapper">
+                                                <!-- Slides -->
+                                                <? foreach($media as $image) {
+                                                    ?>
+                                                        <div class="swiper-slide">
+                                                            <img src="<? echo $image -> guid ?>">
+                                                        </div>
+                                                    <?
+                                                } ?>
+                                            </div>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                    <?
+                                }
+                            ?>
+                            <div class="photo-report-content">
+                                <?
+                                    foreach(get_the_category() as $category) {
+                                        printf(
+                                            '<a href="%s" class="category-link">%s</a>', 
+                                            get_category_link( $category ), 
+                                            $category -> name
+                                        );
+                                    }
+                                ?>
+                                <? $author_id = get_the_author_meta('ID') ?>
+                                <a href="<? echo get_author_posts_url($author_id) ?>" class="author">
+                                    <img src="<? echo get_avatar_url($author_id) ?>" alt="<? the_author() ?>" class="author-avatar">
+                                    <div class="author-bio">
+                                        <span class="author-name"><? the_author() ?></span>
+                                        <span class="author-rank">Разработчик</span>
+                                    </div>
+                                </a>
+                                <h3 class="photo-report-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h3>
+                                <a href="<? echo get_the_permalink() ?>" class="button photo-report-button">
+                                    <svg width="19" height="15" class="icon photo-report-icon">
+                                        <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#images"></use>
+                                    </svg>
+                                    Смотреть фото
+                                    <span class="photo-report-counter"><? echo count($media) ?></span>
+                                </a>
+                            </div>
+                            <!-- /.photo-report-content -->
+                        <?php 
+                    }
+                } else {
+                    ?><p>
+                        Постов нет
+                    </p> <?
+                }
+
+                wp_reset_postdata(); // Сбрасываем $post
+            ?>
+        </div>
+        <!-- /.photo-report -->
+        <div class="other">
+            <div class="career-post">
+                <?php
+                    global $post;
+
+                    $myposts = get_posts([ 
+                        'numberposts' => 1,
+                        'category_name' => 'career'
+                    ]);
+
+                    // Проверка постов
+                    if( $myposts ){
+                        // Если есть, запускаем цикл
+                        foreach( $myposts as $post ){
+                            setup_postdata( $post );
+                            ?>  
+                                <?
+                                    foreach(get_the_category() as $category) {
+                                        printf(
+                                            '<a href="%s" class="category-link %s">%s</a>', 
+                                            get_category_link( $category ), 
+                                            $category -> slug,
+                                            $category -> name
+                                        );
+                                    }
+                                ?>
+                                <h3 class="career-post-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h3>
+                                <p class="career-post-excerpt">
+                                    <? echo mb_strimwidth(get_the_excerpt(), 0, 100, '...') ?>
+                                </p>
+                                <a href="<? echo get_the_permalink() ?>" class="more">Читать далее</a>
+                            <?php 
+                        }
+                    } else {
+                        ?><p>
+                            Постов нет
+                        </p> <?
+                    }
+
+                    wp_reset_postdata(); // Сбрасываем $post
+                ?>
+            </div>
+            <!-- /.career-post -->
+            <div class="other-posts">
+                <?php
+                    global $post;
+
+                    $myposts = get_posts([ 
+                        'numberposts' => 2,
+                        'category_name' => 'other'
+                    ]);
+
+                    // Проверка постов
+                    if( $myposts ){
+                        // Если есть, запускаем цикл
+                        foreach( $myposts as $post ){
+                            setup_postdata( $post );
+                            ?>  
+                                <a href="<? the_permalink() ?>" class="other-post other-post-default">
+                                    <h4 class="other-post-title"><? echo mb_strimwidth(get_the_title(), 0, 20, '...') ?></h4>
+                                    <p class="other-post-excerpt"><? echo mb_strimwidth(get_the_excerpt(), 0, 110, '...') ?></p>
+                                    <span class="other-post-date"><? the_time('j F') ?></span>
+                                </a>
+                            <?php 
+                        }
+                    } else {
+                        ?><p>
+                            Постов нет
+                        </p> <?
+                    }
+
+                    wp_reset_postdata(); // Сбрасываем $post
+                ?>
+            </div>
+            <!-- /.other-posts -->
+        </div>
+        <!-- /.other -->
+        </div>
+        <!-- /.special-grid -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.special -->
+
 <? get_footer();
