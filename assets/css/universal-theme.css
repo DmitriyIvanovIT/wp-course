@@ -501,6 +501,26 @@ body {
   color: #3DC47E;
 }
 
+.category-link.hot {
+  color: #FF4F52;
+}
+
+.category-link.opinions {
+  color: #3BBDC4;
+}
+
+.category-link.news {
+  color: #4592FF;
+}
+
+.category-link.collections {
+  color: #AC8EE3;
+}
+
+.category-link.career {
+  color: #6E99AE;
+}
+
 @media screen and (max-width: 1200px) {
   .hero .right {
     -ms-flex-preferred-size: 35%;
