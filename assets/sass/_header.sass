@@ -59,3 +59,81 @@
       background-color: transparent
       border: none
       cursor: pointer
+@media screen and ( max-width: 1200px )
+  .menu
+    &-item
+      a
+        text-decoration: none
+        color: #ffffff
+        margin-left: 10px
+        margin-right: 10px
+@media screen and ( max-width: 1024px )
+  .search
+    &-form
+      width: 30%
+  .header
+    &-wrapper
+      flex-wrap: wrap
+    &-nav
+      order: 5
+      padding-top: 30px
+    &-menu
+      flex-wrap: wrap
+  .menu
+    &-item
+      a
+        margin-left: 0
+        margin-right: 30px
+@media screen and ( max-width: 768px )
+  .search
+    &-form
+      margin-left: auto
+      width: 40%
+  .header
+    .custom
+      &-logo
+        width: 136px
+    &-wrapper
+      position: relative
+    &-nav
+      display: none
+      position: absolute
+      right: 0
+      height: 0
+      top: 55px
+      width: calc(40% + 40px)
+      background-color: #fff
+      padding: 30px
+      z-index: 99
+      border-radius: 10px
+      overflow: hidden
+      box-shadow: 1px 1px 10px rgba(#262D33, 0.2)
+      transition: 0.5s
+      &.active
+        display: block
+    &-menu
+      flex-direction: column
+      align-items: flex-start
+      a
+        color: #000
+      &-toggle
+        display: flex
+        width: 30px
+        height: 20px
+        align-items: center
+        justify-content: space-between
+        flex-direction: column
+        margin-left: 10px
+        span
+          width: 100%
+          height: 1px
+          background-color: #fff
+    .menu
+      &-item
+        &:not(:last-child)
+          margin-bottom: 15px
+@media screen and ( max-width: 330px )
+  .header
+    .custom
+      &-logo
+        width: 120px

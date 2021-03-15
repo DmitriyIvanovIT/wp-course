@@ -36,7 +36,6 @@
       bottom: 0
       right: 0
       height: 100%
-      width: 100%
       object-fit: cover
       z-index: 0
     .author
@@ -59,16 +58,6 @@
       height: 45px
       border-radius: 50%
     .post
-      &-categories
-        padding: 0
-        margin: 0
-        a
-          color: #4592ff
-          text-transform: uppercase
-          font-weight: 900
-          font-size: 12px
-          line-height: 15px
-          text-decoration: none
       &-title
         font-size: 40px
         line-height: 50px
@@ -154,13 +143,21 @@
     color: #AC8EE3
   &.css
     color: #3DC47E
-  &.hot
-    color: #FF4F52
-  &.opinions
-    color: #3BBDC4
-  &.news
-    color: #4592FF
-  &.collections
-    color: #AC8EE3
-  &.career
-    color: #6E99AE
+@media screen and ( max-width: 1200px )
+  .hero
+    .right
+      flex-basis: 35%
+@media screen and ( max-width: 768px )
+  .hero
+    flex-direction: column
+  .front-page
+    &-header
+      height: auto
+      padding-bottom: 30px
+@media screen and ( max-width: 330px )
+  .hero
+    .left
+      .post-title
+        font-size: 26px
+        line-height: 30px
+        margin-top: 15px

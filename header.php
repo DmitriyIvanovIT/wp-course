@@ -15,14 +15,14 @@
         <div class="container">
             <div class="header-wrapper">
                 <div class="logo">
-                        <?if( has_custom_logo() ){
+                    <?if( has_custom_logo() ){
                             // логотип есть выводим его
                             echo get_custom_logo();
                         } else {?>
-                            <a href="/" class="custom-logo-link" rel="home" aria-current="page">
-                            <span class="logo-name">Universal</span>
-                            </a>
-                        <?}?>
+                    <a href="/" class="custom-logo-link" rel="home" aria-current="page">
+                        <span class="logo-name">Universal</span>
+                    </a>
+                    <?}?>
                 </div>
                 <? wp_nav_menu( [
                     'theme_location'  => 'header_menu',
@@ -33,6 +33,11 @@
                     'items_wrap'      => '<ul id="menu-header-menu" class="header-menu">%3$s</ul>',
                 ] ); ?>
                 <? echo get_search_form(); ?>
+                <a href="#" class="header-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
             </div>
             <!-- /.header-wrapper -->
         </div>
