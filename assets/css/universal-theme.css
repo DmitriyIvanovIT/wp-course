@@ -841,6 +841,17 @@ body {
   color: #ffffff;
 }
 
+.article-grid-item-2 .tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .article-grid-item-2 .tag {
   padding: 5px 12px;
   background: #3DC47E;
@@ -849,6 +860,10 @@ body {
   font-size: 12px;
   line-height: 15px;
   text-transform: capitalize;
+}
+
+.article-grid-item-2 .tag:not(last-child) {
+  margin: 0 10px 10px 0;
 }
 
 .article-grid-item-2 .category-name {
