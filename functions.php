@@ -561,3 +561,7 @@ function delete_intermediate_image_sizes( $sizes ){
 		'2048x2048',
 	] );
 }
+
+add_filter( 'excerpt_more', function($more) {
+    return '...';
+});
