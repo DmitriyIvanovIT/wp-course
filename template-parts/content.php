@@ -91,45 +91,75 @@
                         </span>
                     </div>
                 </div>
+
+                <? $author_id = get_the_author_meta('ID') ?>
+                <div class="post-author">
+                    <div class="post-author-info">
+                        <img src="<?php echo get_avatar_url($author_id); ?>" alt="" <? the_author() ?> class="post-author-avatar">
+                        <span class="post-author-name">
+                            <? the_author($author_id) ?>
+                        </span>
+                        <span class="post-author-rank">Должность</span>
+                        <span class="post-author-posts">
+                            <?
+                                plural_form(
+                                    count_user_posts($author_id),
+                                    array('статья', 'статьи', 'статей')
+                                )
+                            ?>
+                        </span>
+                    </div>
+                    <!-- /.post-author-info -->
+                    <a href="<? echo get_author_posts_url($author_id) ?>" class="post-author-link">
+                        Страница автора
+                    </a>
+                </div>
             </div>
         </div>
 
 
     </header><!-- .entry-header -->
 
-    <div class="entry-content">
-        <?php
-        the_content(
-            sprintf(
-                wp_kses(
-                    /* translators: %s: Name of current post. Only visible to screen readers */
-                    __('Continue reading<span class="screen-reader-text"> "%s"</span>', 'universal-example'),
-                    array(
-                        'span' => array(
-                            'class' => array(),
+    <div class="container">
+        <div class="post-content">
+            <?php
+                the_content(
+                    sprintf(
+                        wp_kses(
+                            /* translators: %s: Name of current post. Only visible to screen readers */
+                            __('Continue reading<span class="screen-reader-text"> "%s"</span>', 'universal-example'),
+                            array(
+                                'span' => array(
+                                    'class' => array(),
+                                ),
+                            )
                         ),
+                        wp_kses_post(get_the_title())
                     )
-                ),
-                wp_kses_post(get_the_title())
-            )
-        );
+                );
 
-        wp_link_pages(
-            array(
-                'before' => '<div class="page-links">' . esc_html__('Pages:', 'universal-example'),
-                'after'  => '</div>',
-            )
-        );
+                wp_link_pages(
+                    array(
+                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'universal-example'),
+                        'after'  => '</div>',
+                    )
+                );
+            ?>
+        </div>
+        <footer class="entry-footer">
+            <?php
+            $tags_list = get_the_tag_list('', esc_html_x(', ', 'list item separator', 'universal-example'));
+            if ($tags_list) {
+                /* translators: 1: list of tags. */
+                printf('<span class="tags-links">' . esc_html__('%1$s', 'universal-example') . '</span>', $tags_list); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            }
+            ?>
+        </footer>
+
+        <?
+            if ( comments_open() || get_comments_number() ) :
+                comments_template();
+            endif;
         ?>
     </div>
-
-    <footer class="entry-footer">
-        <?php
-        $tags_list = get_the_tag_list('', esc_html_x(', ', 'list item separator', 'universal-example'));
-        if ($tags_list) {
-            /* translators: 1: list of tags. */
-            printf('<span class="tags-links">' . esc_html__('%1$s', 'universal-example') . '</span>', $tags_list); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        }
-        ?>
-    </footer>
 </article>

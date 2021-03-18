@@ -14,9 +14,26 @@
     align-items: center
     &-toggle
       display: none
+  &-light
+    background: #fff
+    .logo
+      &-name
+        color: #4592ff
+    .menu
+      &-item
+        a
+          color: #939699
+    .search
+      &-form
+        input
+          background-color: #f5f5f5
+.custom
+  &-logo
+    width: 40px
 .logo
   display: flex
   align-items: center
+  text-decoration: none
   &-name
     font-family: Roboto Slab, serif
     color: #ffffff
@@ -90,9 +107,6 @@
       margin-left: auto
       width: 40%
   .header
-    .custom
-      &-logo
-        width: 136px
     &-wrapper
       position: relative
     &-nav
@@ -132,8 +146,3 @@
       &-item
         &:not(:last-child)
           margin-bottom: 15px
-@media screen and ( max-width: 330px )
-  .header
-    .custom
-      &-logo
-        width: 120px
