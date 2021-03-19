@@ -64,11 +64,15 @@
     
                 wp_reset_postdata(); // сброс
             }
-
-            if (comments_open() || get_comments_number()) :
-                comments_template();
-            endif;
-
+            ?>
+                <div class="container">
+                    <?
+                        if (comments_open() || get_comments_number()) :
+                            comments_template();
+                        endif;
+                    ?>
+                </div>
+            <?
         endwhile; // End of the loop.
     ?>
 </main>
