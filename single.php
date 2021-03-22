@@ -18,33 +18,33 @@
 
             if ($posts) {
                 ?>
-                    <div class="other-post">
+                    <div class="other-posts single-other-posts">
                         <div class="container">
-                            <div class="other-post-wrapper">
+                            <div class="other-posts-wrapper">
                                 <?
                                     foreach( $posts as $post ){
                                         setup_postdata($post);
                                         ?>
-                                            <div class="other-post-card">
+                                            <div class="other-posts-card">
                                             <?
                                                 if( has_post_thumbnail() ) {
-                                                    ?> <img src="<?the_post_thumbnail_url()?>" alt="<?the_title()?>" class="other-post-card__img"> <?
+                                                    ?> <img src="<?the_post_thumbnail_url()?>" alt="<?the_title()?>" class="other-posts-card__img"> <?
                                                 }
                                                 else {
-                                                    ?> <img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<?the_title()?>" class="other-post-card__img"> <?
+                                                    ?> <img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<?the_title()?>" class="other-posts-card__img"> <?
                                                 }
                                             ?>
-                                                <a href="<?echo get_the_permalink()?>"  class="other-post-card__title">
+                                                <a href="<?echo get_the_permalink()?>"  class="other-posts-card__title">
                                                     <?echo mb_strimwidth(get_the_title(), 0, 50, '...')?>
                                                 </a>
-                                                <div class="other-post-card__footer">
-                                                    <div class="other-post-card__watch">
+                                                <div class="other-posts-card__footer">
+                                                    <div class="other-posts-card__watch">
                                                         <svg width="15" height="15" class="icon whatch-icon" fill="#BCBFC2">
                                                             <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#eye"></use>
                                                         </svg>
                                                         <span class="whatch-counter"><? comments_number( '0', '1', '%') ?></span>
                                                     </div>
-                                                    <div class="other-post-card__comments">
+                                                    <div class="other-posts-card__comments">
                                                         <svg width="15" height="15" class="icon comments-icon">
                                                             <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#comment"></use>
                                                         </svg>
