@@ -187,7 +187,7 @@ Template Post Type: page
                                     <a href="<? the_permalink() ?>" class="article-grid-permalink">
                                         <span class="category-name"><? $category = get_the_category(); echo $category[0]->name ?></span>
                                         <h4 class="article-grid-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h4>
-                                        <p class="article-grid-excerpt"><? the_excerpt() ?></p>
+                                        <p class="article-grid-excerpt"><? echo mb_strimwidth(get_the_excerpt(), 0, 110, '...') ?></p>
                                         <div class="article-grid-info">
                                             <div class="author">
                                                 <? $author_id = get_the_author_meta('ID') ?>
@@ -338,89 +338,89 @@ Template Post Type: page
         wp_reset_postdata(); // Сбрасываем $post
     ?>
 
-<div class="container container-digest">
-    <div class="digest-wrapper">
-        <ul class="digest">
-            <? 
-                $myposts = get_posts([ 
-                    'numberposts' => 6,
-                    'category_name' => 'news, opinions, hot, collections' 
-                ]); 
-                    // Проверка постов
-                    if( $myposts ){
-                        // Если есть, запускаем цикл
-                        foreach( $myposts as $post ){
-                            setup_postdata( $post );
-                            ?>
-                                <li class="digest-item">
-                                    <a href="<? the_permalink() ?>" class="digest-item-permalink">
-                                        <?
-                                            if( has_post_thumbnail() ) {
-                                                
-                                                ?><img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="digest-thumb"><?
-                                            }
-                                            else {
-                                                ?><img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<? the_title() ?>" class="digest-thumb"><?
-                                            }
-                                        ?>
-                                    </a>
-                                    <div class="digest-info">
-                                        <button class="bookmark">
-                                        <svg width="14" height="18" class="icon icon-bookmark">
-                                            <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#bookmark"></use>
-                                        </svg>
-
-                                        </button>
-                                        <?
-                                            foreach(get_the_category() as $category) {
-                                                printf(
-                                                    '<a href="%s" class="category-link %s">%s</a>', 
-                                                    get_category_link( $category ), 
-                                                    $category -> slug,
-                                                    $category -> name
-                                                );
-                                            }
-                                        ?>
-                                        <a href="#" class="digest-item-permalink">
-                                        <h3 class="digest-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h3>
+<div class="container">
+    <div class="favourites">
+        <div class="digest-wrapper">
+            <ul class="digest">
+                <? 
+                    $myposts = get_posts([ 
+                        'numberposts' => 6,
+                        'category_name' => 'news, opinions, hot, collections' 
+                    ]); 
+                        // Проверка постов
+                        if( $myposts ){
+                            // Если есть, запускаем цикл
+                            foreach( $myposts as $post ){
+                                setup_postdata( $post );
+                                ?>
+                                    <li class="digest-item">
+                                        <a href="<? the_permalink() ?>" class="digest-item-permalink">
+                                            <?
+                                                if( has_post_thumbnail() ) {
+                                                    
+                                                    ?><img src="<?the_post_thumbnail_url()?>" alt="<? the_title() ?>" class="digest-thumb"><?
+                                                }
+                                                else {
+                                                    ?><img src="<?echo get_template_directory_uri() . '/assets/images/not-photo.jpg'?>" alt="<? the_title() ?>" class="digest-thumb"><?
+                                                }
+                                            ?>
                                         </a>
-                                        <p class="digest-excerpt"><? echo mb_strimwidth(get_the_excerpt(), 0, 200, '...') ?></p>
-                                        <div class="digest-footer">
-                                        <span class="digest-date"><? the_time('j F') ?></span>
-                                        <div class="comments digest-comments">
-                                            <svg width="19" height="15" class="icon comments-icon">
-                                                <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#comment"></use>
+                                        <div class="digest-info">
+                                            <button class="bookmark">
+                                            <svg width="14" height="18" class="icon icon-bookmark">
+                                                <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#bookmark"></use>
                                             </svg>
-                                            <span class="comments-counter"><? comments_number( '0', '1', '%') ?></span>
+
+                                            </button>
+                                            <?
+                                                foreach(get_the_category() as $category) {
+                                                    printf(
+                                                        '<a href="%s" class="category-link %s">%s</a>', 
+                                                        get_category_link( $category ), 
+                                                        $category -> slug,
+                                                        $category -> name
+                                                    );
+                                                }
+                                            ?>
+                                            <a href="#" class="digest-item-permalink">
+                                            <h3 class="digest-title"><? echo mb_strimwidth(get_the_title(), 0, 50, '...') ?></h3>
+                                            </a>
+                                            <p class="digest-excerpt"><? echo mb_strimwidth(get_the_excerpt(), 0, 200, '...') ?></p>
+                                            <div class="digest-footer">
+                                            <span class="digest-date"><? the_time('j F') ?></span>
+                                            <div class="comments digest-comments">
+                                                <svg width="19" height="15" class="icon comments-icon">
+                                                    <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#comment"></use>
+                                                </svg>
+                                                <span class="comments-counter"><? comments_number( '0', '1', '%') ?></span>
+                                            </div>
+                                            <div class="likes digest-likes">
+                                                <svg width="19" height="15" class="icon likes-icon" fill="#BCBFC2">
+                                                    <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#heart"></use>
+                                                </svg>
+                                                <span class="likes-counter"><? comments_number( '0', '1', '%') ?></span>
+                                            </div>
+                                            </div>
+                                            <!-- /.digest-footer -->
                                         </div>
-                                        <div class="likes digest-likes">
-                                            <svg width="19" height="15" class="icon likes-icon" fill="#BCBFC2">
-                                                <use xlink:href="<? echo get_template_directory_uri() ?>/assets/images/icons.svg#heart"></use>
-                                            </svg>
-                                            <span class="likes-counter"><? comments_number( '0', '1', '%') ?></span>
-                                        </div>
-                                        </div>
-                                        <!-- /.digest-footer -->
-                                    </div>
-                                    <!-- /.digest-info -->
-                                </li>
-            <?php 
+                                        <!-- /.digest-info -->
+                                    </li>
+                <?php 
+                        }
+                    } else {
+                        ?><p>
+                                Постов нет
+                        </p> <?
                     }
-                } else {
-                    ?><p>
-                            Постов нет
-                    </p> <?
-                }
 
-                wp_reset_postdata(); // Сбрасываем $post
-            ?>
-            
-        </ul>
-
+                    wp_reset_postdata(); // Сбрасываем $post
+                ?>
+                
+            </ul>
+        </div>
         
+        <? get_sidebar('home-bottom') ?>
     </div>
-    
-    <? get_sidebar('home-bottom') ?>
 </div>
 
 <div class="special">
