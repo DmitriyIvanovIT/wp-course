@@ -540,6 +540,34 @@ function enqueue_universal_style() {
     wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/index.js', null, time(), true );
 }
 
+add_action( 'wp_enqueue_scripts', 'admin_ajax_data', 99 );
+function admin_ajax_data(){
+	wp_localize_script( 'main', 'adminAjax', 
+		array(
+			'url' => admin_url('admin-ajax.php')
+		)
+	);  
+}
+
+add_action('wp_ajax_contacts_form', 'ajax_form');
+add_action('wp_ajax_nopriv_contacts_form', 'ajax_form');
+function ajax_form() {
+    $contact_name = $_POST['contact_name'];
+    $contact_email = $_POST['contact_email'];
+    $contact_comment = $_POST['contact_comment'];
+
+    $message = 'Пользователь оставил заявку. ' . $contact_name . ' задал вопрос ' . $contact_comment . ' Его email: ' . $contact_email;
+    $headers = 'From: Администратор сайта Universal <dmitriyivanovweb@yandex.ru>' . "\r\n";
+
+    wp_mail('dmitriyivanovweb@yandex.ru', 'Новая заявка', $message, $headers);
+
+    echo 'Сообщение отправлено' . $message;
+
+    // mail('wpdeveloperivanov@yandex.ru', 'Новая заявка', $message, $headers);
+	// выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+	wp_die();
+}
+
 // Изменяем настройки облака тегов
 add_filter( 'widget_tag_cloud_args', 'edit_widget_tag_cloud_args');
 function edit_widget_tag_cloud_args( $args){

@@ -26,6 +26,12 @@ body {
 body {
   margin-bottom: 0 !important;
   background: #E5E5E5;
+  color: #4B5157;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .container {
@@ -44,6 +50,10 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.site-main {
+  background: #fff;
 }
 
 @media screen and (max-width: 1200px) {
@@ -2713,6 +2723,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   margin-bottom: 14px;
+  color: #4B5157;
 }
 
 .post-card-title {
@@ -2723,6 +2734,7 @@ body {
   line-height: 25px;
   margin-top: 0;
   margin-bottom: 5px;
+  color: #262D33;
 }
 
 .post-card .author {
@@ -2766,4 +2778,95 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.section-dark {
+  background: #262D33;
+  color: #fff;
+  padding: 50px 122px;
+}
+
+.page-title {
+  font-family: Roboto Slab;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 50px;
+  margin-top: 0;
+  margin-bottom: 27px;
+}
+
+.contacts-title {
+  font-size: 18px;
+  line-height: 30px;
+  margin-bottom: 28px;
+}
+
+.contacts-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.contacts-wrapper .left {
+  margin-right: 80px;
+}
+
+.contacts-wrapper .right a, .contacts-wrapper .right address {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: normal;
+  margin-bottom: 15px;
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.wpcf7-form, .contacts-form {
+  max-width: 460px;
+}
+
+.wpcf7-form input, .contacts-form input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #939699;
+  margin-bottom: 10px;
+  height: 40px;
+}
+
+.wpcf7-form textarea, .contacts-form textarea {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #939699;
+  margin-bottom: 20px;
+  height: 120px;
+  resize: none;
+}
+
+.wpcf7-form input[type="submit"], .contacts-form input[type="submit"] {
+  display: inline-block;
+  width: auto;
+  color: #fff;
+  padding: 10px 20px;
+  padding-right: 50px;
+  border-radius: 20px;
+  background: #4592FF;
+  text-decoration: none;
+  background-image: url("../images/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center right 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.wpcf7-form input[type="submit"]:visited, .wpcf7-form input[type="submit"]:focus, .wpcf7-form input[type="submit"]:hover, .contacts-form input[type="submit"]:visited, .contacts-form input[type="submit"]:focus, .contacts-form input[type="submit"]:hover {
+  color: #fff;
 }

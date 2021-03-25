@@ -9,7 +9,7 @@
     <div class="post-list">
         <?php while (have_posts()) {
             the_post(); ?>
-            <div class="post-card">
+            <a href="<? the_permalink() ?>" class="post-card">
                 <?
                         if( has_post_thumbnail() ) {
                                                     
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <!-- /.post-card-text -->
-            </div>
+            </ф>
         <?php } ?>
         <?php if (!have_posts()) { ?>
             Записей нет.
