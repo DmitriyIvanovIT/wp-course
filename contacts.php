@@ -20,7 +20,32 @@ Template Post Type: page
                 </form>
                 <? echo do_shortcode( '[contact-form-7 id="167" title="Контактная форма"]' ) ?>
             </div>
-            <div class="right"></div>
+            <div class="right">
+                <h2 class="contacts-title">Или по этим контактам</h2>
+                <?
+                    $email = get_field('email');
+                    $phone = get_field('phone');
+                    $adress = get_field('adress');
+
+                    if ($email) {
+                        ?>
+                            <a href="mailto:<? echo $email ?>"><? echo $email ?></a>
+                        <?
+                    }
+
+                    if ($adress) {
+                        ?>
+                            <address><? echo $adress ?></address>
+                        <?
+                    }
+
+                    if ($phone) {
+                        ?>
+                            <a href="tel:<? echo $phone  ?>"><? echo $phone  ?></a>
+                        <?
+                    }
+                ?>
+            </div>
         </div>
     </div>
 </section>    
