@@ -1,5 +1,6 @@
 <? get_header(); ?>
 <div class="container">
+    <?php if ( function_exists( 'the_breadcrumbs' ) ) the_breadcrumbs(); ?>
     <h1 class="category-title">
         <?
             single_cat_title()
